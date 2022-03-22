@@ -1,0 +1,6 @@
+flake8==3.9.0
+pytest==6.2.5
+mypy==0.931
+psycopg2-binary==2.9.3
+python-dotenv==0.19.2
+wemake-python-styleguide==0.16.0
