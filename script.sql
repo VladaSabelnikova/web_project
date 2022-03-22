@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS content.audio_and_text (
             REFERENCES content.video,
     path_to_audio TEXT NOT NULL,
     title TEXT NOT NULL,
+    h1 TEXT NOT NULL,
     description TEXT NOT NULL,
     lang uuid NOT NULL
         CONSTRAINT audio_and_text_lang___fk
