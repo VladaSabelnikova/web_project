@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS content.audio_and_text (
     description TEXT NOT NULL,
     lang uuid NOT NULL
         CONSTRAINT audio_and_text_lang___fk
-            REFERENCES content.langs
+            REFERENCES content.langs,
+    created_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS audio_and_text_title_uindex
