@@ -16,8 +16,8 @@ jobs:
                     pip install flake8==3.9.0 wemake-python-styleguide==0.15.3 mypy==0.931
             -   name: Flake8
                 run: flake8 .
-            -   name: Mypy
-                run: mypy .
+#            -   name: Mypy
+#                run: mypy .
     tests:
         name: Тесты
         runs-on: ubuntu-latest
