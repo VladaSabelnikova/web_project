@@ -12,9 +12,9 @@ class IdTimeStampedMixin(models.Model):
 
 
 class Langs(IdTimeStampedMixin):
-    full_title = models.CharField(_('full_title'), max_length=255)
-    iso_639_1 = models.CharField(_('ISO 639-1'), max_length=255)
-    iso_639_2 = models.CharField(_('ISO 639-2'), max_length=255, blank=True)
+    full_title = models.CharField(_('full_title'), max_length=50)
+    iso_639_1 = models.CharField(_('ISO 639-1'), max_length=10)
+    iso_639_2 = models.CharField(_('ISO 639-2'), max_length=10, blank=True)
 
     class Meta:
         db_table = 'content"."langs'
@@ -23,3 +23,16 @@ class Langs(IdTimeStampedMixin):
 
     def __str__(self):
         return self.full_title
+
+
+class Video(IdTimeStampedMixin):
+    path_to_video = models.CharField(_('path_to_video'), max_length=255)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'content"."video'
+        verbose_name = _('video')
+        verbose_name_plural = _('video')
+
+    def __str__(self):
+        return self.path_to_video
