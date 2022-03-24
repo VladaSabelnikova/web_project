@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS content.audio_and_text (
     id uuid NOT NULL
         CONSTRAINT audio_and_text_pk
             PRIMARY KEY,
-    id_video uuid NOT NULL
-        CONSTRAINT audio_and_text_id_video___fk
+    video uuid NOT NULL
+        CONSTRAINT audio_and_text_video___fk
             REFERENCES content.video,
     path_to_audio TEXT NOT NULL,
     title TEXT NOT NULL,
