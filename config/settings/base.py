@@ -11,6 +11,8 @@ include(
     '../components/database.py',
 )
 
+LOCALE_PATH = ['videos/locale']
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
