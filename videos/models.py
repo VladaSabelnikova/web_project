@@ -38,20 +38,6 @@ class Video(IdTimeStampedMixin):
         return self.path_to_video
 
 
-# class AudioAndText(IdTimeStampedMixin):
-#     video = models.ForeignKey('Video', on_delete=models.CASCADE, db_column='video', db_index=False)
-#     path_to_audio = models.TextField()
-#     title = models.TextField(unique=True)
-#     h1 = models.TextField()
-#     description = models.TextField(unique=True)
-#     lang = models.ForeignKey('Langs', models.DO_NOTHING, db_column='lang')
-#     updated_at = models.DateTimeField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'content"."audio_and_text'
-
-
 class AudioAndText(IdTimeStampedMixin):
     video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False, db_column='video')
     path_to_audio = models.CharField(_('path_to_audio'), max_length=255)
