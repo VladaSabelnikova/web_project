@@ -1,5 +1,9 @@
+-- Файл для создания базы с нуля.
+
+-- Создание схемы:
 CREATE SCHEMA IF NOT EXISTS content;
 
+-- Создание таблицы для языков:
 CREATE TABLE IF NOT EXISTS content.langs (
     id uuid NOT NULL
         CONSTRAINT langs_pk
@@ -10,6 +14,7 @@ CREATE TABLE IF NOT EXISTS content.langs (
     created_at TIMESTAMP WITH TIME ZONE
 );
 
+-- Создание таблицы для видео:
 CREATE TABLE IF NOT EXISTS content.video (
     id uuid NOT NULL
         CONSTRAINT video_pk
@@ -19,7 +24,7 @@ CREATE TABLE IF NOT EXISTS content.video (
     updated_at TIMESTAMP WITH TIME ZONE
 );
 
-
+-- Создание таблицы для аудио и текста:
 CREATE TABLE IF NOT EXISTS content.audio_and_text (
     id uuid NOT NULL
         CONSTRAINT audio_and_text_pk
@@ -38,8 +43,12 @@ CREATE TABLE IF NOT EXISTS content.audio_and_text (
     updated_at TIMESTAMP WITH TIME ZONE
 );
 
+-- Создание индексов под вопросом, но пока мы оставим их.
+
+-- Создание индекса по title:
 CREATE UNIQUE INDEX IF NOT EXISTS audio_and_text_title_uindex
     ON content.audio_and_text (title);
 
+-- Создание индекса по description:
 CREATE UNIQUE INDEX audio_and_text_description_uindex
     ON content.audio_and_text (description);
