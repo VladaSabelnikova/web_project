@@ -1,3 +1,3 @@
-from django.test import TestCase
+"""Файл для тестов, которых нет."""
 
-# Create your tests here.
+from django.test import TestCase

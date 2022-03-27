@@ -1,9 +1,10 @@
-from pathlib import Path
+"""Файл базовой настройки админки."""
+
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from split_settings.tools import include
-
 
 load_dotenv()
 
@@ -78,7 +79,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
@@ -98,5 +98,6 @@ INTERNAL_IPS = [
 if DEBUG:
     import os  # only if you haven't already imported this
     import socket  # only if you haven't already imported this
+
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]

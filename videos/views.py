@@ -1,3 +1,3 @@
-from django.shortcuts import render
+"""Файл для views, которых нет."""
 
-# Create your views here.
+from django.shortcuts import render
