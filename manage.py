@@ -1,3 +1,4 @@
+# flake8: noqa
 #!/usr/bin/python3.9
 """Утилита командной строки Django для административных задач."""
 import os

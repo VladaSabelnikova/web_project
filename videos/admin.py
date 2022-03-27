@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from .models import Langs, Video, AudioAndText
+from .models import Langs, Video, AudioAndText  # noqa: WPS300
 
 
 class AudioAndTextInline(admin.TabularInline):
@@ -22,7 +22,7 @@ class LangsAdmin(admin.ModelAdmin):
     Модель Langs.
     """
 
-    list_display = ('full_title', 'iso_639_1', 'created_at',)
+    list_display = ('full_title', 'iso_639_1', 'created_at')
     search_fields = ('id', 'full_title', 'iso_639_1', 'iso_639_2')
 
 
