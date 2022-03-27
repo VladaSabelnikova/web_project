@@ -51,6 +51,10 @@ class AudioAndText(IdTimeStampedMixin):
         db_table = 'content"."audio_and_text'
         verbose_name = _('audio_and_text')
         verbose_name_plural = _('audio_and_texts')
+        indexes = [
+            models.Index(fields=['title'], name='audio_and_text_title_idx'),
+            models.Index(fields=['description'], name='audio_and_text_description_idx')
+        ]
 
     def __str__(self):
         return self.title
