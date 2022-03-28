@@ -60,6 +60,7 @@ class Video(IdTimeStampedMixin):
 
     """Класс ORM модели Video."""
 
+    video_file = models.FileField(_('Video file'), upload_to='video/')
     path_to_video = models.CharField(_('Path to video'), max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -85,7 +86,8 @@ class AudioAndText(IdTimeStampedMixin):
 
     """Класс ORM модели AudioAndText."""
 
-    video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False, db_column='video')
+    video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False)
+    audio_file = models.FileField(_('Audio file'), upload_to='audio/')
     path_to_audio = models.CharField(_('Path to audio'), max_length=255)
     title = models.CharField(_('Title'), max_length=50)
     h1 = models.CharField('h1', max_length=50)
@@ -100,10 +102,6 @@ class AudioAndText(IdTimeStampedMixin):
         db_table = 'content"."audio_and_text'
         verbose_name = _('Audio and text')
         verbose_name_plural = _('Audio and texts')
-        indexes = [
-            models.Index(fields=['title'], name='audio_and_text_title_idx'),
-            models.Index(fields=['description'], name='audio_and_text_description_idx')
-        ]
 
     def __str__(self) -> models.CharField:
 

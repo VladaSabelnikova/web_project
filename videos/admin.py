@@ -36,7 +36,7 @@ class VideoAdmin(admin.ModelAdmin):
     """
 
     inlines = (AudioAndTextInline,)
-    list_display = ('path_to_video', 'updated_at')
+    list_display = ('video_file', 'updated_at',)
     search_fields = ('id',)
 
 
@@ -49,6 +49,6 @@ class AudioAndTextAdmin(admin.ModelAdmin):
     Модель AudioAndText.
     """
 
-    list_display = ('title', 'path_to_audio', 'updated_at')
+    list_display = ('title', 'audio_file', 'updated_at')
     list_filter = ('video',)
     search_fields = ('title', 'h1', 'id', 'description')
