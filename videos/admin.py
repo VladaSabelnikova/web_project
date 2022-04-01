@@ -36,7 +36,7 @@ class VideoAdmin(admin.ModelAdmin):
     """
 
     inlines = (AudioAndTextInline,)
-    list_display = ('video_file', 'updated_at',)
+    list_display = ('video_file', 'updated_at')
     search_fields = ('id',)
 
 
