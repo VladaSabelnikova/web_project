@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+    database:
+        image: postgres:13
+        expose:
+            - "5432"
+        env_file:
+            - ".env"
+
+    admin:
+        build:
+            context: .
+            dockerfile: Dockerfile.django_admin
+        env_file:
+            - ".env"
+        depends_on:
+            - database
+        ports:
+            - "8000:8000"
+
+    curl:
+        build:
+            context: .
+            dockerfile: Dockerfile.server
