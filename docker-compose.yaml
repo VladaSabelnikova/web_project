@@ -18,8 +18,3 @@ services:
             - database
         ports:
             - "8000:8000"
-
-    curl:
-        build:
-            context: .
-            dockerfile: Dockerfile.server
