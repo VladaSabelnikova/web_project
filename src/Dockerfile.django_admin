@@ -9,4 +9,7 @@ COPY ../.env .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY ../django_admin .
-CMD python manage.py migrate && python manage.py createsuperuser --no-input && python manage.py collectstatic --no-input && gunicorn config.wsgi:application --bind 0.0.0.0:8000
+CMD python manage.py migrate && python manage.py collectstatic --no-input && gunicorn config.wsgi:application --bind 0.0.0.0:8000
+
+# После первого старта контейнера в консоли контейнера выполнить команду:
+# python manage.py createsuperuser --no-input

@@ -3,8 +3,10 @@ services:
 
     database:
         image: postgres:13
-        expose:
-            - "5432"
+#        expose:
+#            - "5432"
+        ports:
+            - "5433:5432"
         env_file:
             - ".env"
         volumes:
