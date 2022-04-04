@@ -6,4 +6,4 @@ DEBUG = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # noqa: F405
-# ALLOWED_HOSTS = [os.getenv('DB_HOST', '127.0.0.1')]
+# ALLOWED_HOSTS = [os.getenv('DB_HOST', '127.0.0.1')]  # noqa: E800
