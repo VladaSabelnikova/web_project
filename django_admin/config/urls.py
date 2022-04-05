@@ -11,3 +11,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+admin.site.site_header = 'Консоль управления контентом'
