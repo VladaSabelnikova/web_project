@@ -61,7 +61,6 @@ class Video(IdTimeStampedMixin):
     """Класс ORM модели Video."""
 
     video_file = models.FileField(_('Video file'), upload_to='video/')
-    path_to_video = models.CharField(_('Path to video'), max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -88,7 +87,6 @@ class AudioAndText(IdTimeStampedMixin):
 
     video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False)
     audio_file = models.FileField(_('Audio file'), upload_to='audio/')
-    path_to_audio = models.CharField(_('Path to audio'), max_length=255)
     title = models.CharField(_('Title'), max_length=50)
     h1 = models.CharField('h1', max_length=50)
     description = models.TextField(_('Description'))
