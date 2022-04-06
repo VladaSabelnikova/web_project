@@ -1,8 +1,10 @@
-"""Файл с кодом для хранения состояния."""
+"""Модуль для хранения состояния."""
 import abc
 import json
 from pathlib import Path
 from typing import Any, Optional
+
+from redis import Redis
 
 
 class BaseStorage:
@@ -32,6 +34,53 @@ class BaseStorage:
         pass
 
 
+class RedisStorage(BaseStorage):
+
+    """
+    Класс для работы с Redis.
+    Реализованы запись и чтение.
+    """
+
+    def __init__(self, redis_adapter: Redis):
+
+        """
+        Конструктор.
+
+        Args:
+            redis_adapter: объект соединения с Redis
+        """
+
+        self.redis_adapter = redis_adapter
+
+    def save_state(self, state: dict) -> None:
+
+        """
+        Метод сохраняет состояние (dict) в Redis.
+        По сути он выполняет аналог метода dict.update() в python.
+
+        Args:
+            state: состояние, словарь, который нужно записать в Redis
+        """
+
+        for key, value in state.items():
+            self.redis_adapter.set(name=key, value=value)
+
+    def retrieve_state(self) -> dict:
+
+        """
+        Метод достаёт из Redis json данные и преобразует их в объект словарь.
+
+        Returns:
+            Вернёт словарь, в котором будет содержимое json.
+        """
+
+        output = {}
+        for key in self.redis_adapter.keys():
+            output[key] = self.redis_adapter.get(key)
+
+        return output
+
+
 class JsonFileStorage(BaseStorage):
 
     """
@@ -59,10 +108,10 @@ class JsonFileStorage(BaseStorage):
         Args:
             state: состояние, словарь, который нужно записать в файл
         """
-        key, value = [(key, value) for key, value in state.items()][0]
+
         old_json_data = self.retrieve_state()
 
-        old_json_data[key] = value
+        old_json_data.update(state)
         new_json_data = json.dumps(old_json_data)
         self.json_file.write_text(new_json_data)
 
@@ -128,3 +177,26 @@ class State:
 
         current_storage = self.storage.retrieve_state()
         return current_storage.get(key, None)
+
+
+def main() -> None:
+
+    """Функция иллюстрирует работу «хранения состояния» на примере хранения в JSON."""
+
+    test_json = JsonFileStorage('json_test.json')
+
+    state = State(test_json)
+    state.set_state('name', 'yan')
+    state.set_state('lastname', 'ponomarev')
+
+    state.set_state('gender', 'female')
+
+    state.set_state('gender', 'male')
+    print(state.get_state('gender'))  # noqa: WPS421
+
+    print(state.get_state('name'))  # noqa: WPS421
+    print(state.get_state('lastname'))  # noqa: WPS421
+
+
+if __name__ == '__main__':
+    main()
