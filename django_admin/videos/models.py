@@ -51,6 +51,9 @@ class Langs(IdTimeStampedMixin):
         """
         Магический метод, для корректного отображения поля в админке.
         Без него Django по умолчанию будет отображать Id, что не очень информативно.
+
+        Returns:
+            Вернёт строку, в которой будет красивый текст, для отображения в админке.
         """
 
         return self.full_title
@@ -71,14 +74,17 @@ class Video(IdTimeStampedMixin):
         verbose_name = _('Video')
         verbose_name_plural = _('Video')
 
-    def __str__(self) -> models.CharField:
+    def __str__(self) -> models.FileField:
 
         """
         Магический метод, для корректного отображения поля в админке.
         Без него Django по умолчанию будет отображать Id, что не очень информативно.
+
+        Returns:
+            Вернёт строку, в которой будет красивый текст, для отображения в админке.
         """
 
-        return self.path_to_video
+        return self.video_file
 
 
 class AudioAndText(IdTimeStampedMixin):
@@ -106,6 +112,9 @@ class AudioAndText(IdTimeStampedMixin):
         """
         Магический метод, для корректного отображения поля в админке.
         Без него Django по умолчанию будет отображать Id, что не очень информативно.
+
+        Returns:
+            Вернёт строку, в которой будет красивый текст, для отображения в админке.
         """
 
         return self.title
