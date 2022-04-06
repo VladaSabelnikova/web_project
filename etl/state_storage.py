@@ -59,7 +59,7 @@ class JsonFileStorage(BaseStorage):
         Args:
             state: состояние, словарь, который нужно записать в файл
         """
-        key, value = [(k, v) for k, v in state.items()][0]
+        key, value = [(key, value) for key, value in state.items()][0]
         old_json_data = self.retrieve_state()
 
         old_json_data[key] = value
@@ -128,16 +128,3 @@ class State:
 
         current_storage = self.storage.retrieve_state()
         return current_storage.get(key, None)
-
-
-def main():
-    file = JsonFileStorage('file.json')
-    state = State(file)
-
-    state.set_state('name', 'vlada')
-    state.set_state('name', 'yan')
-    state.set_state('lastname', 'ponomarev')
-
-
-if __name__ == '__main__':
-    main()
