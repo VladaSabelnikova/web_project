@@ -49,6 +49,7 @@ class JsonFileStorage(BaseStorage):
         """
 
         self.file_path = file_path if file_path else ''
+        self.json_file = Path(self.file_path)
 
     def save_state(self, state: dict) -> None:
 
@@ -58,9 +59,12 @@ class JsonFileStorage(BaseStorage):
         Args:
             state: состояние, словарь, который нужно записать в файл
         """
-        json_file = Path(self.file_path)
-        json_data = json.dumps(state)
-        json_file.write_text(json_data)
+        key, value = [(k, v) for k, v in state.items()][0]
+        old_json_data = self.retrieve_state()
+
+        old_json_data[key] = value
+        new_json_data = json.dumps(old_json_data)
+        self.json_file.write_text(new_json_data)
 
     def retrieve_state(self) -> dict:
 
@@ -69,9 +73,13 @@ class JsonFileStorage(BaseStorage):
 
         Returns:
             Вернёт словарь, в котором будет содержимое json.
+            Если такого файла еще не существует — пустой словарь.
         """
 
-        return json.loads(Path(self.file_path).read_text())
+        if not self.json_file.exists():
+            return {}
+
+        return json.loads(self.json_file.read_text())
 
 
 class State:
@@ -120,3 +128,16 @@ class State:
 
         current_storage = self.storage.retrieve_state()
         return current_storage.get(key, None)
+
+
+def main():
+    file = JsonFileStorage('file.json')
+    state = State(file)
+
+    state.set_state('name', 'vlada')
+    state.set_state('name', 'yan')
+    state.set_state('lastname', 'ponomarev')
+
+
+if __name__ == '__main__':
+    main()
