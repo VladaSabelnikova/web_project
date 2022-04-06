@@ -59,7 +59,7 @@ def backoff(
                 пока не достигнет предела (border_sleep_time).
             """
 
-            nonlocal start_sleep_time
+            nonlocal start_sleep_time  # Переменная точно не глобальная, но и не локальная вроде :)
 
             while True:
                 try:
