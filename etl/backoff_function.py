@@ -1,3 +1,4 @@
+"""Модуль содержит функцию backoff."""
 import sys
 from functools import wraps
 from time import sleep
