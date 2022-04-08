@@ -37,7 +37,6 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('video_file', models.FileField(upload_to='video/', verbose_name='Video file')),
-                ('path_to_video', models.CharField(max_length=255, verbose_name='Path to video')),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
             options={
@@ -52,7 +51,6 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('audio_file', models.FileField(upload_to='audio/', verbose_name='Audio file')),
-                ('path_to_audio', models.CharField(max_length=255, verbose_name='Path to audio')),
                 ('title', models.CharField(max_length=50, verbose_name='Title')),
                 ('h1', models.CharField(max_length=50, verbose_name='h1')),
                 ('description', models.TextField(verbose_name='Description')),

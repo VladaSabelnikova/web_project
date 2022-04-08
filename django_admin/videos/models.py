@@ -74,7 +74,7 @@ class Video(IdTimeStampedMixin):
         verbose_name = _('Video')
         verbose_name_plural = _('Video')
 
-    def __str__(self) -> models.FileField:
+    def __str__(self) -> str:
 
         """
         Магический метод, для корректного отображения поля в админке.
@@ -84,7 +84,7 @@ class Video(IdTimeStampedMixin):
             Вернёт строку, в которой будет красивый текст, для отображения в админке.
         """
 
-        return self.video_file
+        return self.video_file.name
 
 
 class AudioAndText(IdTimeStampedMixin):

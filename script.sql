@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS content.video (
     id uuid NOT NULL
         CONSTRAINT video_pk
             PRIMARY KEY,
-    path_to_video TEXT NOT NULL,
+--     path_to_video TEXT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE,
     updated_at TIMESTAMP WITH TIME ZONE
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS content.audio_and_text (
     video uuid NOT NULL
         CONSTRAINT audio_and_text_video___fk
             REFERENCES content.video,
-    path_to_audio TEXT NOT NULL,
+--     path_to_audio TEXT NOT NULL,
     title TEXT NOT NULL,
     h1 TEXT NOT NULL,
     description TEXT NOT NULL,
