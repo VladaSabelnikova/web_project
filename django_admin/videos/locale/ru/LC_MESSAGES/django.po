@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-27 12:52+0000\n"
+"POT-Creation-Date: 2022-04-08 19:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,42 +19,51 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-#: videos/models.py:15
-msgid "Full title"
-msgstr "Полное название"
 
-#: videos/models.py:21
-msgid "Lang"
-msgstr "Язык"
-
-#: videos/models.py:22
-msgid "Langs"
-msgstr "Языки"
-
-#: videos/models.py:29
-msgid "Path to video"
-msgstr "Путь до видео"
-
-#: videos/models.py:34 videos/models.py:35
-msgid "Video"
+#: videos/apps.py:16
+msgid "videos"
 msgstr "Видео"
 
 #: videos/models.py:43
-msgid "Path to audio"
-msgstr "Путь до аудио"
+msgid "Full title"
+msgstr "Полное название"
 
-#: videos/models.py:44
+#: videos/models.py:52 videos/models.py:101
+msgid "Lang"
+msgstr "Язык"
+
+#: videos/models.py:53
+msgid "Langs"
+msgstr "Языки"
+
+#: videos/models.py:72
+msgid "Video title"
+msgstr "Название видео"
+
+#: videos/models.py:73
+msgid "Video file"
+msgstr "Видео файл"
+
+#: videos/models.py:81 videos/models.py:82
+msgid "Video"
+msgstr "Видео"
+
+#: videos/models.py:103
+msgid "Audio file"
+msgstr "Аудио файл"
+
+#: videos/models.py:104
 msgid "Title"
 msgstr "Заголовок"
 
-#: videos/models.py:46
+#: videos/models.py:106
 msgid "Description"
 msgstr "Описание"
 
-#: videos/models.py:52
+#: videos/models.py:114
 msgid "Audio and text"
 msgstr "Аудио и текст"
 
-#: videos/models.py:53
+#: videos/models.py:115
 msgid "Audio and texts"
 msgstr "Аудио и тексты"

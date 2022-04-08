@@ -5,6 +5,12 @@ import uuid
 from django.utils.translation import gettext_lazy as _
 
 
+def create_file_name(dir_name):
+    def inner(instance, filename):
+        return f'{dir_name}/{uuid.uuid4()}'
+    return inner
+
+
 class IdTimeStampedMixin(models.Model):
 
     """
@@ -63,7 +69,8 @@ class Video(IdTimeStampedMixin):
 
     """Класс ORM модели Video."""
 
-    video_file = models.FileField(_('Video file'), upload_to='video/')
+    title = models.CharField(_('Video title'), max_length=65)
+    video_file = models.FileField(_('Video file'), upload_to=create_file_name('video'))
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -74,7 +81,7 @@ class Video(IdTimeStampedMixin):
         verbose_name = _('Video')
         verbose_name_plural = _('Video')
 
-    def __str__(self) -> str:
+    def __str__(self) -> models.CharField:
 
         """
         Магический метод, для корректного отображения поля в админке.
@@ -84,19 +91,19 @@ class Video(IdTimeStampedMixin):
             Вернёт строку, в которой будет красивый текст, для отображения в админке.
         """
 
-        return self.video_file.name
+        return self.title
 
 
 class AudioAndText(IdTimeStampedMixin):
 
     """Класс ORM модели AudioAndText."""
 
+    lang = models.ForeignKey('Langs', on_delete=models.CASCADE, db_index=False, db_column='lang', verbose_name=_('Lang'))
     video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False)
-    audio_file = models.FileField(_('Audio file'), upload_to='audio/')
+    audio_file = models.FileField(_('Audio file'), upload_to=create_file_name('audio'))
     title = models.CharField(_('Title'), max_length=50)
     h1 = models.CharField('h1', max_length=50)
     description = models.TextField(_('Description'))
-    lang = models.ForeignKey('Langs', on_delete=models.CASCADE, db_index=False, db_column='lang')
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
