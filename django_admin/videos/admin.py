@@ -5,13 +5,32 @@ from django.contrib import admin
 from .models import Langs, Video, AudioAndText  # noqa: WPS300
 
 
-class AudioAndTextInline(admin.TabularInline):
+class AudioAndTextInline(admin.StackedInline):
     """
     Класс для вставки аудио и текста со страницы редактирования видео.
     Модель AudioAndText.
     """
 
     model = AudioAndText
+
+    def get_extra(self, request, obj=None, **kwargs):
+
+        """
+        Штука определяет кол-во добавляемых инлайнов.
+        Подробнее см.
+        https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.InlineModelAdmin.get_extra
+
+        Args:
+            request: см. док.
+            obj: см. док.
+            **kwargs: см. док.
+
+        Returns:
+            Возвращает кол-во инлайнов.
+        """
+
+        extra = 1
+        return extra
 
 
 @admin.register(Langs)
@@ -38,17 +57,3 @@ class VideoAdmin(admin.ModelAdmin):
     inlines = (AudioAndTextInline,)
     list_display = ('video_file', 'updated_at')
     search_fields = ('id',)
-
-
-@admin.register(AudioAndText)
-class AudioAndTextAdmin(admin.ModelAdmin):
-
-    """
-    Класс определяющий интерфейс редактирования Аудио и текста.
-    Присутствуют поля для отображения поля фильтрации и поля для поиска.
-    Модель AudioAndText.
-    """
-
-    list_display = ('title', 'audio_file', 'updated_at')
-    list_filter = ('video',)
-    search_fields = ('title', 'h1', 'id', 'description')
