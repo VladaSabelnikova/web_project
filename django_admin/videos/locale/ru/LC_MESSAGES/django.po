@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-08 21:02+0000\n"
+"POT-Creation-Date: 2022-04-09 16:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,46 +24,70 @@ msgstr ""
 msgid "videos"
 msgstr "Видео"
 
-#: videos/models.py:43
+#: videos/models.py:86
 msgid "Full title"
 msgstr "Полное название"
 
-#: videos/models.py:52 videos/models.py:101
+#: videos/models.py:95 videos/models.py:176
 msgid "Lang"
 msgstr "Язык"
 
-#: videos/models.py:53
+#: videos/models.py:96
 msgid "Langs"
 msgstr "Языки"
 
-#: videos/models.py:72
-msgid "Video title"
+#: videos/models.py:115
+#, fuzzy
+#| msgid "Video title"
+msgid "Video track title"
 msgstr "Название видео"
 
-#: videos/models.py:73
-msgid "Video file"
+#: videos/models.py:116
+#, fuzzy
+#| msgid "Video file"
+msgid "Video track file"
 msgstr "Видео файл"
 
-#: videos/models.py:81 videos/models.py:82
-msgid "Video"
-msgstr "Видео"
+#: videos/models.py:124 videos/models.py:182
+#, fuzzy
+#| msgid "Video title"
+msgid "Video track"
+msgstr "Название видео"
 
-#: videos/models.py:103
-msgid "Audio file"
+#: videos/models.py:125
+#, fuzzy
+#| msgid "Video title"
+msgid "Video tracks"
+msgstr "Название видео"
+
+#: videos/models.py:144
+#, fuzzy
+#| msgid "Audio file"
+msgid "Audio track title"
 msgstr "Аудио файл"
 
-#: videos/models.py:104
+#: videos/models.py:145
+#, fuzzy
+#| msgid "Audio file"
+msgid "Audio track file"
+msgstr "Аудио файл"
+
+#: videos/models.py:152 videos/models.py:188
+msgid "Audio track"
+msgstr "Аудио трек"
+
+#: videos/models.py:153
+msgid "Audio tracks"
+msgstr "Аудио треки"
+
+#: videos/models.py:190
 msgid "Title"
 msgstr "Заголовок"
 
-#: videos/models.py:106
+#: videos/models.py:192
 msgid "Description"
 msgstr "Описание"
 
-#: videos/models.py:114
-msgid "Audio and text"
-msgstr "Аудио и текст"
-
-#: videos/models.py:115
-msgid "Audio and texts"
-msgstr "Аудио и тексты"
+#: videos/models.py:200 videos/models.py:201
+msgid "Video"
+msgstr "Видео"

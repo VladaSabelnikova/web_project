@@ -1,44 +1,57 @@
 """Файл для создания ORM моделей."""
-from typing import Callable, Any
+from typing import Any
 
 from django.db import models
 import uuid
 from django.utils.translation import gettext_lazy as _
 
 
-def create_file_name(dir_name: str) -> Callable:
+def create_file_name() -> uuid.UUID:
 
     """
-    Функция-замыкание.
-    Её задача создать внутри вложенной функции (inner) видимость переменной dir_name.
-
-    Args:
-        dir_name: имя директории, которую мы хотим задействовать
+    Функция для создания уникального имени файла без расширения.
 
     Returns:
-        Возвращает функцию (inner), как объект.
+        Вернёт UUID, в качестве имени файла.
     """
 
-    def inner(instance: Any, filename: Any) -> str:
+    return uuid.uuid4()
 
-        """
-        Функция, которая создаст путь до некоего файла.
-        Переменные (instance, filename) нужны для корректной работы FileField upload_to=...
-        Мы их никак не будем задействовать.
-        Подробнее см.
-        https://docs.djangoproject.com/en/4.0/ref/models/fields/
 
-        Args:
-            instance: см. док.
-            filename: название файла, которое джанго создаёт по умолчанию.
+def create_path_audio(instance: Any, filename: Any) -> str:
 
-        Returns:
-            Вернёт строку, состоящею из директории и файла без расширения.
-            Название файла генерируется uuid, что бы оно было гарантированно уникальным.
-        """
+    """
+    Функция для создания пути аудио-трека.
+    Подробнее см.
+    https://docs.djangoproject.com/en/4.0/ref/models/fields/
 
-        return f'{dir_name}/{uuid.uuid4()}'
-    return inner
+    Args:
+        instance: см. док.
+        filename: см. док.
+
+    Returns:
+        Вернёт строку (путь) к треку.
+    """
+
+    return f'audio/{create_file_name()}'
+
+
+def create_path_video(instance: Any, filename: Any) -> str:
+
+    """
+    Функция для создания пути видео-трека.
+    Подробнее см.
+    https://docs.djangoproject.com/en/4.0/ref/models/fields/
+
+    Args:
+        instance: см. док.
+        filename: см. док.
+
+    Returns:
+        Вернёт строку (путь) к треку.
+    """
+
+    return f'video/{create_file_name()}'
 
 
 class IdTimeStampedMixin(models.Model):
@@ -95,21 +108,21 @@ class Langs(IdTimeStampedMixin):
         return self.full_title
 
 
-class Video(IdTimeStampedMixin):
+class VideoTrack(IdTimeStampedMixin):
 
-    """Класс ORM модели Video."""
+    """Класс ORM модели VideoTrack."""
 
-    title = models.CharField(_('Video title'), max_length=65)
-    video_file = models.FileField(_('Video file'), upload_to=create_file_name('video'))
+    title = models.CharField(_('Video track title'), max_length=65)
+    video_file = models.FileField(_('Video track file'), upload_to=create_path_video)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
 
         """Мета-класс, нужный для служебной информации."""
 
-        db_table = 'content"."video'
-        verbose_name = _('Video')
-        verbose_name_plural = _('Video')
+        db_table = 'content"."video_track'
+        verbose_name = _('Video track')
+        verbose_name_plural = _('Video tracks')
 
     def __str__(self) -> models.CharField:
 
@@ -124,9 +137,36 @@ class Video(IdTimeStampedMixin):
         return self.title
 
 
-class AudioAndText(IdTimeStampedMixin):
+class AudioTrack(IdTimeStampedMixin):
 
-    """Класс ORM модели AudioAndText."""
+    """Класс ORM модели AudioTrack."""
+
+    title = models.CharField(_('Audio track title'), max_length=65)
+    video_file = models.FileField(_('Audio track file'), upload_to=create_path_audio)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Мета-класс, нужный для служебной информации."""
+
+        db_table = 'content"."audio_track'
+        verbose_name = _('Audio track')
+        verbose_name_plural = _('Audio tracks')
+
+    def __str__(self) -> models.CharField:
+        """
+        Магический метод, для корректного отображения поля в админке.
+        Без него Django по умолчанию будет отображать Id, что не очень информативно.
+
+        Returns:
+            Вернёт строку, в которой будет красивый текст, для отображения в админке.
+        """
+
+        return self.title
+
+
+class Video(IdTimeStampedMixin):
+
+    """Класс ORM модели Video."""
 
     lang = models.ForeignKey(
         'Langs',
@@ -135,8 +175,18 @@ class AudioAndText(IdTimeStampedMixin):
         db_column='lang',
         verbose_name=_('Lang')
     )
-    video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False)
-    audio_file = models.FileField(_('Audio file'), upload_to=create_file_name('audio'))
+    video_track = models.ForeignKey(
+        'VideoTrack',
+        on_delete=models.CASCADE,
+        db_index=False,
+        verbose_name=_('Video track')
+    )
+    audio_track = models.ForeignKey(
+        'AudioTrack',
+        on_delete=models.CASCADE,
+        db_index=False,
+        verbose_name=_('Audio track')
+    )
     title = models.CharField(_('Title'), max_length=50)
     h1 = models.CharField('h1', max_length=50)
     description = models.TextField(_('Description'))
@@ -146,9 +196,9 @@ class AudioAndText(IdTimeStampedMixin):
 
         """Мета-класс, нужный для служебной информации."""
 
-        db_table = 'content"."audio_and_text'
-        verbose_name = _('Audio and text')
-        verbose_name_plural = _('Audio and texts')
+        db_table = 'content"."video'
+        verbose_name = _('Video')
+        verbose_name_plural = _('Video')
 
     def __str__(self) -> models.CharField:
 

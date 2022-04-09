@@ -1,41 +1,12 @@
 """Файл для создания админки."""
-from typing import Any, Optional
-
 from django.contrib import admin
 
-from .models import Langs, Video, AudioAndText  # noqa: WPS300
-
-
-class AudioAndTextInline(admin.StackedInline):
-    """
-    Класс для вставки аудио и текста со страницы редактирования видео.
-    Модель AudioAndText.
-    """
-
-    model = AudioAndText
-
-    def get_extra(self, request: Any, obj: Optional[Any] = None, **kwargs: dict) -> int:
-
-        """
-        Штука определяет кол-во добавляемых инлайнов.
-        Подробнее см.
-        https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.InlineModelAdmin.get_extra
-
-        Args:
-            request: см. док.
-            obj: см. док.
-            **kwargs: см. док.
-
-        Returns:
-            Возвращает кол-во инлайнов.
-        """
-
-        extra = 1
-        return extra  # noqa:  WPS331
+from .models import Langs, Video, AudioTrack, VideoTrack  # noqa: WPS300
 
 
 @admin.register(Langs)
 class LangsAdmin(admin.ModelAdmin):
+
     """
     Класс определяющий интерфейс редактирования языков.
     Присутствуют поля для отображения и поля для поиска.
@@ -48,13 +19,38 @@ class LangsAdmin(admin.ModelAdmin):
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
+
     """
     Класс определяющий интерфейс редактирования видео.
-    Присутствуют интерфейс для редактирования аудио и теста,
     поля для отображения и поля для поиска.
     Модель Video.
     """
 
-    inlines = (AudioAndTextInline,)
-    list_display = ('title', 'video_file', 'updated_at')
+    list_display = ('title', 'updated_at')
+    search_fields = ('title', 'id')
+
+
+@admin.register(AudioTrack)
+class AudioTrackAdmin(admin.ModelAdmin):
+
+    """
+    Класс определяющей интерфейс редактирования аудио трека.
+    Поля для отображения и поля для поиска.
+    Модель AudioTrackAdmin.
+    """
+
+    list_display = ('title', 'updated_at')
+    search_fields = ('title', 'id')
+
+
+@admin.register(VideoTrack)
+class VideoTrackAdmin(admin.ModelAdmin):
+
+    """
+    Класс определяющей интерфейс редактирования видео трека.
+    Поля для отображения и поля для поиска.
+    Модель VideoTrackAdmin.
+    """
+
+    list_display = ('title', 'updated_at')
     search_fields = ('title', 'id')

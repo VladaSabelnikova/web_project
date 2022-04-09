@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-08 21:02+0000\n"
+"POT-Creation-Date: 2022-04-09 16:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,46 +22,70 @@ msgstr ""
 msgid "videos"
 msgstr "videos"
 
-#: videos/models.py:43
+#: videos/models.py:86
 msgid "Full title"
 msgstr "Full title"
 
-#: videos/models.py:52 videos/models.py:101
+#: videos/models.py:95 videos/models.py:176
 msgid "Lang"
 msgstr "Lang"
 
-#: videos/models.py:53
+#: videos/models.py:96
 msgid "Langs"
 msgstr "Langs"
 
-#: videos/models.py:72
-msgid "Video title"
+#: videos/models.py:115
+#, fuzzy
+#| msgid "Video title"
+msgid "Video track title"
 msgstr "Video title"
 
-#: videos/models.py:73
-msgid "Video file"
+#: videos/models.py:116
+#, fuzzy
+#| msgid "Video file"
+msgid "Video track file"
 msgstr "Video file"
 
-#: videos/models.py:81 videos/models.py:82
-msgid "Video"
-msgstr "Video"
+#: videos/models.py:124 videos/models.py:182
+#, fuzzy
+#| msgid "Video title"
+msgid "Video track"
+msgstr "Video title"
 
-#: videos/models.py:103
-msgid "Audio file"
+#: videos/models.py:125
+#, fuzzy
+#| msgid "Video title"
+msgid "Video tracks"
+msgstr "Video title"
+
+#: videos/models.py:144
+#, fuzzy
+#| msgid "Audio file"
+msgid "Audio track title"
 msgstr "Audio file"
 
-#: videos/models.py:104
+#: videos/models.py:145
+#, fuzzy
+#| msgid "Audio file"
+msgid "Audio track file"
+msgstr "Audio file"
+
+#: videos/models.py:152 videos/models.py:188
+msgid "Audio track"
+msgstr "Audio track"
+
+#: videos/models.py:153
+msgid "Audio tracks"
+msgstr "Audio tracks"
+
+#: videos/models.py:190
 msgid "Title"
 msgstr "Title"
 
-#: videos/models.py:106
+#: videos/models.py:192
 msgid "Description"
 msgstr "Description"
 
-#: videos/models.py:114
-msgid "Audio and text"
-msgstr "Audio and text"
-
-#: videos/models.py:115
-msgid "Audio and texts"
-msgstr "Audio and texts"
+#: videos/models.py:200 videos/models.py:201
+msgid "Video"
+msgstr "Video"
