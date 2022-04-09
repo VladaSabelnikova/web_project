@@ -1,4 +1,5 @@
 """Файл для создания админки."""
+from typing import Any, Optional
 
 from django.contrib import admin
 
@@ -13,7 +14,7 @@ class AudioAndTextInline(admin.StackedInline):
 
     model = AudioAndText
 
-    def get_extra(self, request, obj=None, **kwargs):
+    def get_extra(self, request: Any, obj: Optional[Any] = None, **kwargs: dict) -> int:
 
         """
         Штука определяет кол-во добавляемых инлайнов.
@@ -30,7 +31,7 @@ class AudioAndTextInline(admin.StackedInline):
         """
 
         extra = 1
-        return extra
+        return extra  # noqa:  WPS331
 
 
 @admin.register(Langs)

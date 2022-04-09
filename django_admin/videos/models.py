@@ -1,12 +1,42 @@
 """Файл для создания ORM моделей."""
+from typing import Callable, Any
 
 from django.db import models
 import uuid
 from django.utils.translation import gettext_lazy as _
 
 
-def create_file_name(dir_name):
-    def inner(instance, filename):
+def create_file_name(dir_name: str) -> Callable:
+
+    """
+    Функция-замыкание.
+    Её задача создать внутри вложенной функции (inner) видимость переменной dir_name.
+
+    Args:
+        dir_name: имя директории, которую мы хотим задействовать
+
+    Returns:
+        Возвращает функцию (inner), как объект.
+    """
+
+    def inner(instance: Any, filename: Any) -> str:
+
+        """
+        Функция, которая создаст путь до некоего файла.
+        Переменные (instance, filename) нужны для корректной работы FileField upload_to=...
+        Мы их никак не будем задействовать.
+        Подробнее см.
+        https://docs.djangoproject.com/en/4.0/ref/models/fields/
+
+        Args:
+            instance: см. док.
+            filename: название файла, которое джанго создаёт по умолчанию.
+
+        Returns:
+            Вернёт строку, состоящею из директории и файла без расширения.
+            Название файла генерируется uuid, что бы оно было гарантированно уникальным.
+        """
+
         return f'{dir_name}/{uuid.uuid4()}'
     return inner
 
@@ -98,7 +128,13 @@ class AudioAndText(IdTimeStampedMixin):
 
     """Класс ORM модели AudioAndText."""
 
-    lang = models.ForeignKey('Langs', on_delete=models.CASCADE, db_index=False, db_column='lang', verbose_name=_('Lang'))
+    lang = models.ForeignKey(
+        'Langs',
+        on_delete=models.CASCADE,
+        db_index=False,
+        db_column='lang',
+        verbose_name=_('Lang')
+    )
     video = models.ForeignKey('Video', on_delete=models.CASCADE, db_index=False)
     audio_file = models.FileField(_('Audio file'), upload_to=create_file_name('audio'))
     title = models.CharField(_('Title'), max_length=50)
