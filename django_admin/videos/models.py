@@ -142,7 +142,7 @@ class AudioTrack(IdTimeStampedMixin):
     """Класс ORM модели AudioTrack."""
 
     title = models.CharField(_('Audio track title'), max_length=65)
-    video_file = models.FileField(_('Audio track file'), upload_to=create_path_audio)
+    audio_file = models.FileField(_('Audio track file'), upload_to=create_path_audio)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

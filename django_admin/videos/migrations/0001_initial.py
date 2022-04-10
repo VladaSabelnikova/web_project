@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('title', models.CharField(max_length=65, verbose_name='Audio track title')),
-                ('video_file', models.FileField(upload_to='audio', verbose_name='Audio track file')),
+                ('audio_file', models.FileField(upload_to='audio', verbose_name='Audio track file')),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
             options={
