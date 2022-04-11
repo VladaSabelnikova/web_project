@@ -6,6 +6,7 @@
 
 SELECT_FROM_PG = """  
     SELECT
+        v.id,
         v.title,
         v.description,
         v.h1,
