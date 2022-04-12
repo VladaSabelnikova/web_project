@@ -1,8 +1,61 @@
 """Модуль содержит pydantic классы."""
-from typing import Tuple
+from typing import Tuple, Optional
+from uuid import UUID
 
-from pydantic import BaseSettings
+from pydantic import BaseSettings, BaseModel
 from pydantic.env_settings import SettingsSourceCallable
+
+
+def custom_prefix(name: str) -> str:
+
+    """
+    Функция для создания псевдонимов полей pydantic.
+    Подробнее см.
+    https://pydantic-docs.helpmanual.io/usage/model_config/#alias-generator
+
+    Args:
+        name: название поля
+
+    Returns:
+        Вернёт новый вариант названия.
+    """
+
+    return f'_{name}'
+
+
+class Source(BaseModel):
+
+    """
+    Класс pydantic.
+    Нужен для работы с содержимым ElasticSearch документов.
+    """
+
+    id: Optional[UUID]
+    title: Optional[str]
+    description: Optional[str]
+    h1: Optional[str]
+
+
+class Document(BaseModel):
+
+    """
+    Класс pydantic.
+    Нужен для работы с ElasticSearch документами.
+    """
+
+    id: Optional[UUID]
+    index: Optional[str]
+    source: Source = Source()
+
+    class Config:
+
+        """
+        Настройки pydantic.
+        Подробнее см.
+        https://pydantic-docs.helpmanual.io/usage/model_config/
+        """
+
+        alias_generator = custom_prefix
 
 
 class EnvMixin(BaseSettings):
@@ -73,8 +126,9 @@ class ElasticSettings(EnvMixin):
     Тут настройки для ElasticSearch.
     """
 
-    elastic_host: str
-    elastic_port: int
+    elastic_host: str = 'localhost'
+    elastic_port: int = 9200
+    address: str = f'http://{elastic_host}:{elastic_port}'
 
 
 class ETLSettings(EnvMixin):
@@ -94,4 +148,7 @@ class ETLSettings(EnvMixin):
     index_name: str = 'videos'
 
 
+# Конфиги, построенные на основе классов pydantic.
+
 config = ETLSettings()
+document_config = Document()
