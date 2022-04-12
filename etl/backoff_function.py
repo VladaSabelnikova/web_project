@@ -66,7 +66,7 @@ def backoff(
                     return func(*args, **kwargs)
                 except Exception as error:
 
-                    logger.error(f'{error}\nПовтор через {start_sleep_time} секунд.')
+                    logger.error('%s\nПовтор через %s секунд.\n', error, start_sleep_time)
 
                     sleep(start_sleep_time)
                     start_sleep_time = min(start_sleep_time * factor, border_sleep_time)  # noqa: WPS442
