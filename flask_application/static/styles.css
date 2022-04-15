@@ -1,0 +1,14 @@
+.app-bar-style {
+    background-color: #1e88e5;
+}
+
+.title-app-bar-style {
+    margin-left: 24px;
+    color: #fafafa;
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.button-app-bar-style {
+    width: 72px
+}
