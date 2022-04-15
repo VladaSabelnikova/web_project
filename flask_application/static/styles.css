@@ -12,3 +12,17 @@
 .link-app-bar-style {
     width: 72px;
 }
+
+.button-app-bar-style {
+    background-color: #ff9800;
+}
+
+.button-app-bar-style:hover {
+    background-color: #c66900;
+}
+
+.position-btn {
+    position: absolute;
+    right: 6vw;
+    bottom: 6vh;
+}
