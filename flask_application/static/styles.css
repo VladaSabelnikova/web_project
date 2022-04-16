@@ -22,7 +22,28 @@
 }
 
 .position-btn {
-    position: absolute;
+    position: fixed;
     right: 6vw;
-    bottom: 6vh;
+    bottom: 10vh;
+}
+
+
+.base-cards-style {
+    margin-left: auto;
+    margin-right: auto;
+    width: 344px;
+}
+
+.card-size {
+    width: 344px;
+    height: 148px;
+    text-align: left;
+    padding-top: 16px;
+}
+
+.title-text {
+    margin-left: 16px;
+    font-size: medium;
+    font-family: 'Rubik', sans-serif;
+    color: #212121;
 }
