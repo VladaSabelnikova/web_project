@@ -3,8 +3,8 @@ services:
 
     database:
         image: postgres:13
-#        expose:
-#            - "5432"
+        #        expose:
+        #            - "5432"
         ports:
             - "5433:5432"
         env_file:
@@ -25,6 +25,18 @@ services:
         volumes:
             - videos:/videos
             - static:/app/static
+            - media_source:/app/media
+
+    etl:
+        build:
+            context: .
+            dockerfile: src/Dockerfile.etl
+        env_file:
+            - "etl/.env_etl"
+        volumes:
+            - media_source:/media_source
+        depends_on:
+            - admin
 
     nginx:
         image: nginx:1.9.2
@@ -42,3 +54,4 @@ volumes:
     data:
     videos:
     static:
+    media_source:
