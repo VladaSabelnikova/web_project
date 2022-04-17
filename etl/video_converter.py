@@ -1,5 +1,6 @@
 import subprocess
 from multiprocessing import Process
+from pathlib import Path
 from typing import Optional
 
 import ffmpeg_streaming
@@ -30,11 +31,17 @@ class MediaConverter:
             return container
         return None
 
-    def to_mpeg_dash(self, container: str, output: str) -> None:
-        video = ffmpeg_streaming.input(container)
+    def to_mpeg_dash(self, container: Path, output: str) -> None:
+        video = ffmpeg_streaming.input(str(container))
         dash = video.dash(Formats.h264())
         dash.auto_generate_representations()
         dash.output(output)
+
+        container.unlink()
+
+
+    def to_hls(self, container: str, output: str) -> None:
+        pass
 
 
 def main():
