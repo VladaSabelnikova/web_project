@@ -12,7 +12,9 @@ def main() -> None:
 
     """Функция реализует работу ETL процесса."""
 
-    etl = ETL(config.postgres_parameters.dict(), config.elastic_search_parameters.address)
+    address = f'http://{config.elastic_search_parameters.elastic_host}:{config.elastic_search_parameters.elastic_port}'
+
+    etl = ETL(config.postgres_parameters.dict(), address)
     pack, begin, time, index_name = config.pack_size, 0, config.smallest_time, config.index_name
 
     state = State(JsonFileStorage('state.json'))
@@ -22,14 +24,16 @@ def main() -> None:
     while True:
 
         row_data = etl.extract(time_from_storage=time, pack_size=pack, begin=begin)
+        logger.info('Data has been received.')
 
         if row_data:
 
             transformed_data, new_date = etl.transform(row_data, index_name)
             all_dates.append(new_date)
+            logger.info('Data has been transformed.')
 
             etl.load(transformed_data)
-            logger.info('Recorded updated data.\nPack size %s\n', len(row_data))
+            logger.info('Data has been loaded.')
 
             begin += pack
 
@@ -43,7 +47,7 @@ def main() -> None:
             sleep(10)
 
 
-if __name__ == '__main__':
+logger = create_logger(__file__, stream_out=sys.stdout)
 
-    logger = create_logger(__file__, stream_out=sys.stdout)
+if __name__ == '__main__':
     main()
