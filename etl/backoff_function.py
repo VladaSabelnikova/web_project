@@ -63,6 +63,7 @@ def backoff(
 
             while True:
                 try:
+                    logger.info('Try start function %s', func.__name__)
                     return func(*args, **kwargs)
                 except Exception as error:
 
