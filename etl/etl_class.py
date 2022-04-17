@@ -1,12 +1,17 @@
 """Модуль содержит класс, для работы ETL."""
+import sys
+from multiprocessing import Process
+from pathlib import Path
 from typing import List, Tuple, Dict, Union
 
 import psycopg2
 from elasticsearch import Elasticsearch, helpers
 
 from backoff_function import backoff
-from etl.database_query import SELECT_FROM_PG
-from etl.models import document_config
+from database_query import SELECT_FROM_PG
+from log import create_logger
+from models import document_config
+from video_converter import MediaConverter
 
 
 class ETL:
@@ -76,8 +81,20 @@ class ETL:
             all_dates_from_pack.append(f'{max_date}')
 
             if track_changed:
-                # Обработка видео.
-                pass
+
+                dir_media = 'media_source/'
+                mp_4 = f'{dir_media}{id_video}.mp4'
+                mpeg_dash_manifest = f'../streams/{id_video}/dash.mpd'
+
+                mc = MediaConverter()
+                logger.info('Media converter started.')
+
+                container = mc.make_container(f'{dir_media}{video_file}', f'{dir_media}{audio_file}', mp_4)
+                logger.info('Container has been created.')
+
+                packaging = Process(target=mc.to_mpeg_dash, args=(Path(container), mpeg_dash_manifest))
+                packaging.start()
+                logger.info('Packaging process has been started.')
 
             if data_changed:
                 doc.id = id_video
@@ -87,6 +104,7 @@ class ETL:
                 doc.source.title = title
                 doc.source.description = description
                 doc.source.h1 = h1
+                logger.info('Metadata has been collected.')
 
             transformed_pack.append(doc.dict(by_alias=True))
 
@@ -106,4 +124,10 @@ class ETL:
         """
 
         es = Elasticsearch(self.elastic_search_address)
+        logger.info('Elastic connection has been created: %s', self.elastic_search_address)
+
         helpers.bulk(es, data)
+        logger.info('Pack has been sent.')
+
+
+logger = create_logger(__file__, stream_out=sys.stdout)
