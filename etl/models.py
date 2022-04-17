@@ -128,7 +128,6 @@ class ElasticSettings(EnvMixin):
 
     elastic_host: str = 'localhost'
     elastic_port: int = 9200
-    address: str = f'http://{elastic_host}:{elastic_port}'
 
 
 class ETLSettings(EnvMixin):
