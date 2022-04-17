@@ -1,10 +1,11 @@
 """Модуль содержит ETL процесс."""
 import sys
+from time import sleep
 
-from etl.etl_class import ETL
-from etl.log import create_logger
-from etl.models import config
-from etl.state_storage import JsonFileStorage, State
+from etl_class import ETL
+from log import create_logger
+from models import config
+from state_storage import JsonFileStorage, State
 
 
 def main() -> None:
@@ -28,20 +29,21 @@ def main() -> None:
             all_dates.append(new_date)
 
             etl.load(transformed_data)
-            logger.info('Записали обновлённые данные.\nРазмер пачки %s\n', len(row_data))
+            logger.info('Recorded updated data.\nPack size %s\n', len(row_data))
 
             begin += pack
 
         else:
             old_date = state.get_state('time')
-            state.set_state('time', max(old_date, max(all_dates)))
+            state.set_state('time', max([old_date, *all_dates]))
             begin = 0
             time = state.get_state('time')
 
-            logger.info('Нет пачек для вставки. Последнее обновление %s', time)
+            logger.info('No packs to insert. Last update %s', time)
+            sleep(10)
 
 
 if __name__ == '__main__':
 
-    logger = create_logger(__name__, stream_out=sys.stdout)
+    logger = create_logger(__file__, stream_out=sys.stdout)
     main()
