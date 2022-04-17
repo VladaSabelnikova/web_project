@@ -6,7 +6,7 @@ from typing import TextIO
 
 def create_logger(
         name: str,
-        format_line: str = '%(levelname)s — %(asctime)s — %(name)s — %(message)s',
+        format_line: str = '%(levelname)s | %(asctime)s | %(name)s | %(message)s',
         stream_out: TextIO = sys.stdout,
         level: str = 'INFO'
 ) -> logging.Logger:
