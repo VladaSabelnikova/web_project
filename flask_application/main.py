@@ -10,12 +10,12 @@ app = Flask(__name__)
 def index():
     data_from_es = es_methods.get_all()['hits']['hits']
 
-    return render_template('all_videos.html', data_from_es=data_from_es)
+    return render_template('all_videos.html', data_from_es=data_from_es, title='Главная')
 
 
 @app.route('/<id>')
 def get_by_id(id):
-    return render_template('video_display.html', id=id)
+    return render_template('video_display.html', id=id, title='Видео')
 
 
 def main():
