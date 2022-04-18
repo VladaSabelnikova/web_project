@@ -74,6 +74,7 @@ services:
         volumes:
             - ./src/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./src/site.conf:/etc/nginx/conf.d/site.conf:ro
+            - ./flask_application/static/styles.css:/static/styles.css
             - static:/static
             - streams:/streams
         depends_on:
