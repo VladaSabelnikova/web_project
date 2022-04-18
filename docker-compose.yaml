@@ -23,6 +23,8 @@ services:
         environment:
             - discovery.type=single-node
             - ES_JAVA_OPTS=-Xms2000m -Xmx2000m
+        depends_on:
+            - database
 
     admin:
         build:
@@ -53,6 +55,20 @@ services:
             - admin
             - elastic
 
+    flask:
+        build:
+            context: .
+            dockerfile: src/Dockerfile.flask
+        env_file:
+            - "flask_application/.env_flask_app"
+        volumes:
+            - flask_app:/app
+        depends_on:
+            - admin
+            - elastic
+        ports:
+            - "5000:5000"
+
     nginx:
         image: nginx:1.9.2
         volumes:
@@ -73,3 +89,4 @@ volumes:
     media_source:
     elastic_data:
     streams:
+    flask_app:
