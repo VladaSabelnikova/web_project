@@ -1,9 +1,6 @@
-import json
-import os
-
 from flask import Flask, render_template
 
-from flask_application.for_elastic_search import ElasticSearchMethods
+from for_elastic_search import ElasticSearchMethods
 from models import flask_config
 
 app = Flask(__name__)
@@ -14,6 +11,11 @@ def index():
     data_from_es = es_methods.get_all()['hits']['hits']
 
     return render_template('all_videos.html', data_from_es=data_from_es)
+
+
+@app.route('/<id>')
+def get_by_id(id):
+    return render_template('video_display.html', id=id)
 
 
 def main():

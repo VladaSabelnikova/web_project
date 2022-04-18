@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <video class="video-js vjs-default-skin" controls height=432 id=example-video width=768></video>
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <!--<script src="dash.all.js"></script>-->
+    <script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"></script>
+    <script>
+        var player = videojs('example-video');
+        player.src({src: "/streams/{{ id }}/dash.mpd", type: 'application/dash+xml'});
+        player.play();
+    </script>
+{% endblock %}
