@@ -11,4 +11,4 @@ class ElasticSearchMethods:
         return self.es.search(index=self.index_name, query={'match_all': {}})
 
     def get_by_id(self, id: str):
-        return self.es.get(index=self.index_name, id=id)
+        return self.es.get(index=self.index_name, id=id)['_source']

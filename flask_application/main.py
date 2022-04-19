@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, render_template
 
 from for_elastic_search import ElasticSearchMethods
@@ -15,7 +17,11 @@ def index():
 
 @app.route('/<id>')
 def get_by_id(id):
-    return render_template('video_display.html', id=id, title='Видео')
+
+    data = es_methods.get_by_id(id)
+    h1, title, description = data['h1'], data['title'], data['description']
+
+    return render_template('video_display.html', id=id, title=title, h1=h1, description=description)
 
 
 def main():

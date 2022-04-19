@@ -35,8 +35,10 @@
 }
 
 .card-size {
-    width: 344px;
-    height: 148px;
+    min-height: 148px;
+    min-width: 344px;
+    width: auto;
+    height: auto;
     text-align: left;
     padding-top: 16px;
 }
@@ -46,4 +48,41 @@
     font-size: medium;
     font-family: 'Rubik', sans-serif;
     color: #212121;
+}
+
+.box-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
+
+.h1-text {
+    margin-bottom: 64px;
+    font-size: revert;
+    font-family: 'Work Sans', sans-serif bold;
+    color: #212121;
+    font-weight: bold;
+}
+
+.p-text {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    color: #393838;
+}
+
+.description-text {
+    margin-top: 64px;
+    font-size: 24px;
+    color: #393838;
+}
+
+.box-description {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.custom-settings-card {
+    margin-top: 16px;
 }
