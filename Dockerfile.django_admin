@@ -4,11 +4,11 @@ EXPOSE 8000/tcp
 
 WORKDIR /app
 
-COPY ../requirements.txt .
-COPY ../.env .
+COPY requirements.txt .
+COPY .env .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
-COPY ../django_admin .
+COPY django_admin .
 CMD python manage.py migrate && python manage.py collectstatic --no-input && gunicorn config.wsgi:application --bind 0.0.0.0:8000
 
 # После первого старта контейнера в консоли контейнера выполнить команду:

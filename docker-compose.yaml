@@ -15,7 +15,7 @@ services:
     elastic:
         build:
             context: .
-            dockerfile: src/Dockerfile.elastic
+            dockerfile: Dockerfile.elastic
         ports:
             - "9200:9200"
         volumes:
@@ -29,7 +29,7 @@ services:
     admin:
         build:
             context: .
-            dockerfile: src/Dockerfile.django_admin
+            dockerfile: Dockerfile.django_admin
         env_file:
             - ".env"
         depends_on:
@@ -44,7 +44,7 @@ services:
     etl:
         build:
             context: .
-            dockerfile: src/Dockerfile.etl
+            dockerfile: Dockerfile.etl
         env_file:
             - "etl/.env_etl"
         volumes:
@@ -58,7 +58,7 @@ services:
     flask:
         build:
             context: .
-            dockerfile: src/Dockerfile.flask
+            dockerfile: Dockerfile.flask
         env_file:
             - "flask_application/.env_flask_app"
         volumes:
