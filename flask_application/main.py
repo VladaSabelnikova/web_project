@@ -1,9 +1,8 @@
-import logging
-
 from flask import Flask, render_template
 
 from for_elastic_search import ElasticSearchMethods
 from models import flask_config
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -27,7 +26,7 @@ def get_by_id(id):
 def main():
 
     host, port = flask_config.host, flask_config.port
-    app.run(host=host, port=port)
+    serve(app, port=port, host=host)
 
 
 if __name__ == '__main__':
