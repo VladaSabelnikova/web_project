@@ -4,4 +4,4 @@ RUN yum update -y && yum upgrade -y && yum install -y curl
 COPY src/schemas_elastic_search/ru_schemas.json .
 
 # После первого старта контейнера в консоли контейнера выполнить команду:
-# curl -XPUT localhost:9200/videos -H 'Content-Type: application/json' -d @ru_schemas.json
+# curl -XPUT 127.0.0.1:9200/videos -H 'Content-Type: application/json' -d @ru_schemas.json
