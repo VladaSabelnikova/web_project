@@ -3,8 +3,8 @@ services:
 
     database:
         image: postgres:13
-        expose:
-            - "5432"
+        ports:
+            - "5432:5432"
         env_file:
             - ".env"
         volumes:
@@ -15,8 +15,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.elastic
-        expose:
-            - "9200"
+        ports:
+            - "9200:9200"
         volumes:
             - elastic_data:/usr/share/elasticsearch
         environment:
@@ -34,8 +34,8 @@ services:
             - ".env"
         depends_on:
             - database
-        expose:
-            - "8000"
+        ports:
+            - "8000:8000"
         volumes:
             - videos:/videos
             - static:/app/static
@@ -68,8 +68,8 @@ services:
         depends_on:
             - admin
             - elastic
-        expose:
-            - "5000"
+        ports:
+            - "5000:5000"
         restart: always
 
     nginx:

@@ -4,7 +4,7 @@
     <div class="box-center">
         <div><h1 class="h1-text">{{ h1 }}</h1></div>
 
-        <video class="video-js vjs-default-skin" controls height=432 id=example-video width=768></video>
+        <video class="video-js vjs-default-skin" controls height=360 id=example-video width=640></video>
         <script src="https://unpkg.com/video.js/dist/video.js"></script>
         <script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"></script>
         <script>
@@ -12,11 +12,12 @@
             player.src({src: "/streams/{{ id }}/dash.mpd", type: 'application/dash+xml'});
             player.play();
         </script>
+
+        <div class="box-description">
+            <p class="p-text">{{ description }}</p>
+        </div>
+
     </div>
 
-    <!--Понять как вставить описание ровно-->
-    <div class="box-description">
-        <p class="p-text">{{ description }}</p>
-    </div>
 
 {% endblock %}
