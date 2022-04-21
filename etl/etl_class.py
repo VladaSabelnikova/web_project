@@ -58,7 +58,7 @@ class ETL:
             data = cur_postgres.fetchall()
             return data  # noqa: WPS331
 
-    def transform(self, data: List[Tuple[str, ...]], index_name: str) -> Tuple[List[dict], str]:
+    def transform(self, data: List[Tuple[str, ...]], index_name: str) -> Tuple[List[dict], str]:  # noqa: WPS210
 
         """
         Функция реализует «transform» задачу ETL.
@@ -72,18 +72,18 @@ class ETL:
             Вернёт список трансформированных данных и максимальную дату пачки.
         """
 
-        all_dates_from_pack = []
-        transformed_pack = []
+        all_dates_from_pack = []  # Все даты из пачки (потом будем искать максимальную из них).
+        transformed_pack = []  # Трансформированная пачка данных, в подходящем для ES формате.
 
         for id_video, title, description, h1, audio_file, video_file, data_changed, track_changed, max_date in data:
-            doc = document_config
+            doc = document_config  # Формат документа для индекса ES.
 
             all_dates_from_pack.append(f'{max_date}')
 
-            if track_changed:
+            if track_changed:  # Если изменился трек — нужна перешивка.
 
                 dir_media = 'media_source/'
-                mp_4 = f'{dir_media}{id_video}.mp4'
+                mp_4 = f'{dir_media}{id_video}.mp4'  # noqa: WPS114
                 mpeg_dash_manifest = f'../streams/{id_video}/dash.mpd'
 
                 mc = MediaConverter()
@@ -96,7 +96,7 @@ class ETL:
                 packaging.start()
                 logger.info('Packaging process has been started.')
 
-            if data_changed:
+            if data_changed:  # Если изменились meta-data — просто обновляем их.
                 doc.id = id_video
                 doc.index = index_name
 
