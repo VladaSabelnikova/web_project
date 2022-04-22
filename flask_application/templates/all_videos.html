@@ -2,8 +2,9 @@
 
 {% block content %}
     {% for elem in data_from_es %}
-        <a href="/{{ elem['_source']['id'] }}">
-            <div class="base-cards-style row">
+
+        <div class="base-cards-style row">
+            <a href="/{{ elem['_source']['id'] }}">
                 <div class="custom-settings-card col s12 m6">
                     <div class="card-size card">
                         <span class="title-text card-title">{{ elem['_source']['h1'] }}</span>
@@ -13,7 +14,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
+
     {% endfor %}
 {% endblock %}

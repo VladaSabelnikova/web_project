@@ -31,15 +31,10 @@
 .base-cards-style {
     margin-left: auto;
     margin-right: auto;
-    width: 344px;
+    width: 440px;
 }
 
 .card-size {
-    min-height: 148px;
-    min-width: 440px;
-    width: auto;
-    height: auto;
-    text-align: left;
     padding-top: 16px;
 }
 
@@ -87,4 +82,7 @@
 
 .custom-settings-card {
     margin-top: 16px;
+    min-height: 148px;
+    min-width: 440px;
+    height: auto;
 }
